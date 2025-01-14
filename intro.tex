@@ -1,0 +1,67 @@
+\chapter{Propuestas, Generalidades y Configuraciones Utilizadas}
+
+\section{Motivación del Estudio}
+
+La creciente necesidad de tratamientos multidrogas para abordar enfermedades complejas ha impulsado el interés en identificar interacciones entre medicamentos (\textit{Drug-Drug Interactions}, DDIs). Estas interacciones pueden ocasionar efectos secundarios adversos o incluso consecuencias graves para la salud. La detección experimental de DDIs es un proceso costoso y prolongado, lo que subraya la importancia de los enfoques computacionales para predecir estas interacciones de manera más eficiente y precisa.
+
+El artículo \textit{DPDDI: A Deep Predictor for Drug-Drug Interactions} presenta un método basado en técnicas de aprendizaje profundo, como las redes de convolución de grafos (\textit{Graph Convolutional Networks}, GCN) y las redes neuronales profundas (\textit{Deep Neural Networks}, DNN). El enfoque DPDDI utiliza información topológica de las redes de interacción de medicamentos para predecir DDIs con alta precisión.
+
+\section{Propuesta del Artículo}
+
+El enfoque DPDDI propuesto combina un extractor de características basado en GCN con un predictor basado en DNN. Las principales contribuciones de este método incluyen:
+
+\begin{itemize}
+    \item \textbf{Extracción de características latentes:} El uso de GCN permite capturar las relaciones topológicas entre los nodos (medicamentos) en una red de DDIs, generando representaciones de baja dimensionalidad que preservan información estructural clave.
+    \item \textbf{Agregación de características:} Las características de pares de medicamentos se combinan mediante una operación de concatenación, que demostró ser superior a otros métodos como el producto interno y la suma.
+    \item \textbf{Predicción con redes neuronales profundas:} El predictor basado en DNN aprende relaciones no lineales entre las características de los medicamentos para determinar la probabilidad de interacción.
+\end{itemize}
+
+El artículo reporta que DPDDI supera a cuatro métodos de última generación en diversas métricas, incluyendo el área bajo la curva ROC (AUC), la precisión y el \textit{F1-score}, demostrando su efectividad y robustez.
+
+\section{Generalidades de los Ejercicios}
+
+Para validar el modelo DPDDI, los autores utilizaron tres conjuntos de datos provenientes de \textit{DrugBank}:
+
+\begin{itemize}
+    \item \textbf{DB1:} Contiene 1562 medicamentos y 180,576 interacciones anotadas.
+    \item \textbf{DB2:} Un subconjunto más pequeño con 548 medicamentos y 48,584 interacciones.
+    \item \textbf{DB3:} Un conjunto más grande con 1934 medicamentos y 230,887 interacciones.
+\end{itemize}
+
+Los experimentos se realizaron utilizando validación cruzada de 5 particiones (\textit{5-fold cross-validation}) para evaluar el rendimiento del modelo en diferentes configuraciones.
+
+\section{Configuraciones Utilizadas}
+
+El artículo describe un extenso proceso de ajuste de hiperparámetros para optimizar tanto el extractor de características GCN como el predictor DNN. Las configuraciones óptimas utilizadas son las siguientes:
+
+\subsection{Extractor de Características (GCN)}
+\begin{itemize}
+    \item \textbf{Tasa de aprendizaje:} 0.001
+    \item \textbf{Épocas:} 1400
+    \item \textbf{Tasa de abandono:} 0.0001
+    \item \textbf{Dimensiones de la capa oculta:} [512, 128]
+\end{itemize}
+
+\subsection{Predictor (DNN)}
+\begin{itemize}
+    \item \textbf{Tasa de aprendizaje:} 0.01
+    \item \textbf{Épocas:} 140
+    \item \textbf{Tasa de abandono:} 0.001
+    \item \textbf{Tamaño de lote:} 50
+    \item \textbf{Dimensiones de la capa oculta:} [128, 64, 32]
+\end{itemize}
+
+\textbf{Nota: Esta configuración es la utilizada en el artículo, durante la replicación de los experimentos no se pudieron utilizar más de 30 epocas}
+
+
+\section{Reproducción de los Ejercicios}
+
+En el presente trabajo, los ejercicios descritos en el artículo original se reprodujeron utilizando la plataforma \textit{Therapeutic Data Commons}. Este proceso incluyó:
+
+\begin{itemize}
+    \item Implementación del modelo GCN para extraer características latentes de los medicamentos.
+    \item Agregación de características de pares de medicamentos mediante concatenación.
+    \item Entrenamiento de un predictor DNN con los mismos hiperparámetros reportados.
+\end{itemize}
+
+Los resultados obtenidos se compararon con los reportados en el artículo original para validar la reproducibilidad y efectividad del enfoque.
